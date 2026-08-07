@@ -14,9 +14,7 @@ cask "spotline" do
     # the release pipeline requires CURRENT_PROJECT_VERSION to increase
     # whenever MARKETING_VERSION does, so the short version is sufficient to
     # detect a genuinely new release.
-    strategy :sparkle do |item|
-      item.short_version
-    end
+    strategy :sparkle, &:short_version
   end
 
   # Spotline updates itself through Sparkle. Without this, `brew upgrade`
