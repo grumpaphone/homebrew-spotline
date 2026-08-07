@@ -37,8 +37,17 @@ cask "spotline" do
   ]
 
   caveats <<~EOS
-    Spotline is signed but not notarized by Apple. Installed through Homebrew
-    this needs no extra step, provided you passed --no-quarantine.
+    Spotline is signed but NOT notarized by Apple, so macOS will block the
+    first launch. Clear it once, either way:
+
+      xattr -dr com.apple.quarantine #{appdir}/Spotline.app
+
+    or launch it, let macOS refuse, then open System Settings > Privacy &
+    Security and click "Open Anyway". Control-click > Open no longer works on
+    macOS 15+.
+
+    You only do this once. Updates Spotline installs for itself are not
+    quarantined, so they do not repeat it.
 
     API keys are stored in your login Keychain under "com.spotline.apikeys"
     and are NOT removed by `brew uninstall --zap`. Remove them in Keychain

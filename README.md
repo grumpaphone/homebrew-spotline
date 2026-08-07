@@ -5,35 +5,41 @@ Audio library, local transcription, and Pro Tools spotting for audio post.
 ## Install
 
 ```sh
-brew install --cask --no-quarantine grumpaphone/spotline/spotline
+brew install --cask grumpaphone/spotline/spotline
 ```
 
-Homebrew will warn you that `--no-quarantine` bypasses Gatekeeper. That is
-expected, and the reason is below — it is also why this tap exists rather than
-just a download link.
+Then clear the first-launch block once (see below).
 
-## Why `--no-quarantine`
+## The first launch
 
 Spotline is **code signed but not notarized by Apple**. Notarization requires a
 paid Apple Developer Program membership; not having it means Apple has not
-scanned the app. It does **not** mean the app is unsigned or has been modified
-in transit.
+scanned the app. It does **not** mean the app is unsigned or was modified in
+transit — every release is cryptographically signed.
 
-Without the flag, macOS quarantines the download and blocks the first launch,
-and since macOS 15 the old Control-click → Open shortcut no longer works — you
-would have to go to System Settings › Privacy & Security › Open Anyway and
-enter an admin password. Passing `--no-quarantine` skips that, because Homebrew
-never applies the attribute in the first place.
+macOS quarantines the download and blocks the first launch. Clear it once,
+whichever you prefer:
 
-Homebrew has no way for a cask to make that choice on your behalf, by design.
-It is yours to make.
+```sh
+xattr -dr com.apple.quarantine /Applications/Spotline.app
+```
+
+or launch Spotline, let macOS refuse, then open **System Settings › Privacy &
+Security** and click **Open Anyway**. On macOS 15+ the old Control-click → Open
+shortcut no longer works.
+
+Installing via Homebrew does *not* skip this. Homebrew removed its
+`--no-quarantine` flag, and a cask cannot waive quarantine on your behalf —
+that is deliberate on Homebrew's part, and this tap does not work around it.
+
+You only do this once. Updates that Spotline installs for itself are not
+quarantined, so they do not repeat it.
 
 ## Updates
 
 Spotline updates itself using [Sparkle](https://sparkle-project.org), verifying
 an EdDSA signature on every update before installing it. That check does not
-depend on Apple notarization, and updates Spotline installs are not
-quarantined — so the first-launch step above is needed once, not per update.
+depend on Apple notarization.
 
 The cask is marked `auto_updates true`, so `brew upgrade` leaves Spotline alone
 and lets the app manage its own versions.
