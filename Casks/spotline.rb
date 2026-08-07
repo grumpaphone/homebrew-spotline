@@ -8,7 +8,15 @@ cask "spotline" do
 
   livecheck do
     url "https://pub-b6b0f0b9be184a8ba1bd3ee72524b767.r2.dev/appcast.xml"
-    strategy :sparkle
+    # Bare `strategy :sparkle` yields "shortVersion,buildVersion" (e.g.
+    # "0.1.0,1"), which never equals this cask's "0.1.0" — so `brew livecheck`
+    # reports an update on every run, forever. Take the short version alone;
+    # the release pipeline requires CURRENT_PROJECT_VERSION to increase
+    # whenever MARKETING_VERSION does, so the short version is sufficient to
+    # detect a genuinely new release.
+    strategy :sparkle do |item|
+      item.short_version
+    end
   end
 
   # Spotline updates itself through Sparkle. Without this, `brew upgrade`
