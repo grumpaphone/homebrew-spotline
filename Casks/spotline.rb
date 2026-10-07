@@ -1,6 +1,6 @@
 cask "spotline" do
-  version "0.1.0"
-  sha256 "0fbdb2cfd4076b91b1bc8d40be8407e33ae271abd1821cd02b13a08b3c0b398e"
+  version "0.3.0"
+  sha256 "e13a2a6ac9a8c0c86702789fd8d5566a5bc1aa7c9ee741009868211ee4570fe0"
 
   url "https://pub-b6b0f0b9be184a8ba1bd3ee72524b767.r2.dev/Spotline-#{version}.dmg"
   name "Spotline"
@@ -37,18 +37,6 @@ cask "spotline" do
   ]
 
   caveats <<~EOS
-    Spotline is signed but NOT notarized by Apple, so macOS will block the
-    first launch. Clear it once, either way:
-
-      xattr -dr com.apple.quarantine #{appdir}/Spotline.app
-
-    or launch it, let macOS refuse, then open System Settings > Privacy &
-    Security and click "Open Anyway". Control-click > Open no longer works on
-    macOS 15+.
-
-    You only do this once. Updates Spotline installs for itself are not
-    quarantined, so they do not repeat it.
-
     API keys are stored in your login Keychain under "com.spotline.apikeys"
     and are NOT removed by `brew uninstall --zap`. Remove them in Keychain
     Access if you want them gone.
