@@ -1,6 +1,6 @@
 cask "spotline" do
-  version "0.3.12"
-  sha256 "87e4852e1869017aa73d07adb81f573decfa1c5b3d57708ee046218e07a409c5"
+  version "0.3.13"
+  sha256 "59e9d566087f9f450841aae0129e5ceb498ca5c3c1bbc71d26a9914e17e3177d"
 
   url "https://pub-b6b0f0b9be184a8ba1bd3ee72524b767.r2.dev/Spotline-#{version}.dmg"
   name "Spotline"
